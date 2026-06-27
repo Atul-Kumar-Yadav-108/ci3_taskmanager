@@ -1,0 +1,95 @@
+/* ============================================================
+   TaskManager — Custom Stylesheet
+   ============================================================ */
+
+/* ----- Global ----- */
+:root {
+    --tm-primary:        #0d6efd;
+    --tm-sidebar-width:  260px;
+    --tm-navbar-height:  56px;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: #f5f6fa;
+    color: #212529;
+}
+
+/* ----- Login page ----- */
+.page-login {
+    background: linear-gradient(135deg, #e9f0fb 0%, #f5f6fa 100%);
+}
+
+.page-login .card {
+    border-radius: 1rem;
+}
+
+.page-login .input-group-text {
+    border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.page-login .form-control {
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.page-login .form-control.border-start-0.border-end-0 {
+    border-radius: 0;
+}
+
+/* ----- Navbar ----- */
+.navbar {
+    min-height: var(--tm-navbar-height);
+}
+
+.navbar-brand {
+    font-size: 1.1rem;
+    letter-spacing: 0.3px;
+}
+
+/* ----- Avatar circle (initials) ----- */
+.avatar-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.25);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+/* ----- Stat cards on dashboard ----- */
+.stat-icon {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ----- Cards ----- */
+.card {
+    border-radius: 0.75rem;
+}
+
+/* ----- Flash message container (no extra margin on login) ----- */
+.page-login #flash-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    left: auto;
+    width: 360px;
+    z-index: 1055;
+}
+
+/* ----- Buttons ----- */
+.btn {
+    border-radius: 0.5rem;
+}
+
+/* ----- Utility ----- */
+.text-primary { color: var(--tm-primary) !important; }
+

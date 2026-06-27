@@ -1,0 +1,33 @@
+/* ============================================================
+   TaskManager — Responsive Overrides
+   ============================================================ */
+
+/* Tablet & below */
+@media (max-width: 991.98px) {
+    .page-login #flash-container {
+        position: static;
+        width: 100%;
+        padding: 0;
+        margin-top: 0;
+    }
+
+    .stat-icon {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 575.98px) {
+    .login-card-wrapper {
+        padding: 0.5rem;
+    }
+
+    .card-body.p-4 {
+        padding: 1.25rem !important;
+    }
+
+    h2.fw-bold {
+        font-size: 1.5rem;
+    }
+}
