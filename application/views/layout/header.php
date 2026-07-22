@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="<?= base_url('assets/vendor/fontawesome/fontawesome-free-7.2.0-web/css/all.min.css') ?>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- Custom CSS -->
+     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.3/css/buttons.dataTables.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.3/css/responsive.dataTables.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/4.0.2/css/fixedHeader.dataTables.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/2.3.8/css/dataTables.dataTables.css" />
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/responsive.css') ?>">
 </head>

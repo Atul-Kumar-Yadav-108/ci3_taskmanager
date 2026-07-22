@@ -93,3 +93,39 @@ body {
 /* ----- Utility ----- */
 .text-primary { color: var(--tm-primary) !important; }
 
+
+/* excel button of dattable */
+
+.buttons-excel {
+    background-color:var(--tm-primary) !important;
+    border: none !important;
+    outline: none !important;
+    color : #f5f6fa !important;
+    border-radius: 10% !important;
+}
+
+
+.buttons-excel:hover {
+    background-color: #0452c7 !important;
+    font-weight: bold !important;
+}
+
+
+
+#example th,
+#example td {
+    white-space: nowrap;
+}
+
+.form-control[readonly] {
+    background-color: #dbdbdb;
+    opacity: 1;
+}
+
+.description {
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    word-break: break-word;
+    max-width: 250px;
+}

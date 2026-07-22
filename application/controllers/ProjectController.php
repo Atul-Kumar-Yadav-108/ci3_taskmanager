@@ -24,8 +24,24 @@ class ProjectController extends Authenticated_Controller
     {   
         $data['title']      = 'Add Project';
         $data['page_class'] = 'page-add-project';
-
-        $this->render('projects/add_project', $data);
+        $this->form_validation->set_rules('project_name','Project name','required');
+        if($this->form_validation->run() ==FALSE)
+            {
+                // $this->load ->view('form');
+                $data['single'] = $this->Project_model->get_single_project();
+                $this->render('projects/add_project', $data);
+            }
+            else
+            {
+               
+                $result = $this->Project_model->set_project();
+                if($result == 1){
+                    $this->session->set_flashdata('success','New Project has been created');
+                }elseif($result == 2){
+                    $this->session->set_flashdata('success','Project has been updated');
+                }
+                redirect('project_list');
+            }
     }
 
 
@@ -44,8 +60,23 @@ class ProjectController extends Authenticated_Controller
     {
         $data['title']      = 'Add Module';
         $data['page_class'] = 'page-add-module';
-
-        $this->render('projects/add_module', $data);
+    $this->form_validation->set_rules('module_name','Module name','required');
+        if($this->form_validation->run() == FALSE){
+            $data['single'] = $this->Project_model->get_single_module();
+            $data['projects'] = $this->Project_model->get_all_project_list();
+            // echo "<pre>";print_r($data['projects']);exit;
+            $this->render('projects/add_module', $data);
+        }else{
+            // echo "<pre>";print_r($_POST);exit;
+                $result = $this->Project_model->set_module();
+                if($result == 1){
+                    $this->session->set_flashdata('success','New module has been created');
+                }elseif($result == 2){
+                    $this->session->set_flashdata('success','Module has been updated');
+                }
+                redirect('sub_module_list');
+        }
+        
     }
 
 
@@ -64,8 +95,24 @@ class ProjectController extends Authenticated_Controller
     {
         $data['title']      = 'Add Sub Module';
         $data['page_class'] = 'page-add-sub-module';
+        $this->form_validation->set_rules('sub_module_name','Sub Module name','required');
+        if($this->form_validation->run() == FALSE){
+            $data['single'] = $this->Project_model->get_single_sub_module();
+            $data['projects'] = $this->Project_model->get_all_project_list();
+            if(!empty($this->uri->segment(2))){
+                $data['modules'] = $this->Project_model->get_all_module_list_by_project_id($data['single']->project_id);
+            }
+            $this->render('projects/add_sub_module', $data);
+        }else{
+                $result = $this->Project_model->set_sub_module();
+                if($result == 1){
+                    $this->session->set_flashdata('success','New sub module has been created');
+                }elseif($result == 2){
+                    $this->session->set_flashdata('success','Sub module has been updated');
+                }
+                redirect('sub_module_list');      
+        }
 
-        $this->render('projects/add_sub_module', $data);
     }
 
 
@@ -74,8 +121,13 @@ class ProjectController extends Authenticated_Controller
     {
         $data['title']      = 'Milestone List';
         $data['page_class'] = 'page-milestone';
+        $this->form_validation->set_rules('module_name','Module name','required');
+        if($this->form_validation->run() == FALSE){
 
-        $this->render('projects/milestone_list', $data);
+            $this->render('projects/milestone_list', $data);
+        }else{
+
+        }
     }
 
 

@@ -1,3 +1,4 @@
+<?php $this->load->view('layout/header');?>
 <div class="min-vh-100 d-flex align-items-center justify-content-center bg-light">
     <div class="login-card-wrapper w-100" style="max-width: 420px; padding: 1rem;">
 
@@ -88,6 +89,7 @@
         </p>
     </div>
 </div>
+<?php $this->load->view('layout/footer');?>
 
 <script>
     // Toggle password visibility

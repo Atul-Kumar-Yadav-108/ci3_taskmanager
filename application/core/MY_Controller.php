@@ -20,9 +20,9 @@ class MY_Controller extends CI_Controller
      */
     protected function render($view, $data = [])
     {
-        $this->load->view('layout/header', $data);
+        // $this->load->view('layout/header', $data);
         $this->load->view($view, $data);
-        $this->load->view('layout/footer', $data);
+        // $this->load->view('layout/footer', $data);
     }
 }
 
