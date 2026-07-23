@@ -15,6 +15,7 @@ $route['logout'] = 'Auth/logout';
 $route['dashboard'] = 'Dashboard/index';
 $route['task_list'] = 'TaskController';
 $route['add_task'] = 'TaskController/add_task';
+$route['add_task/(:any)'] = 'TaskController/add_task/$1';
 $route['project_list'] = 'ProjectController';
 $route['add_project'] = 'ProjectController/add_project';
 $route['add_project/(:any)'] = 'ProjectController/add_project/$1';

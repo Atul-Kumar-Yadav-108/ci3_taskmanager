@@ -52,7 +52,9 @@
                         <select class="form-select" name="sub_module_id" id="sub_module_id">
 
                             <option value="">Select Sub Module</option>
-                            <?php if(!empty($sub_modules)){ 
+                            <?php
+                                
+                            if(!empty($sub_modules)){ 
                                     foreach($sub_modules as $sub_module){
                                 ?>
                                 <option value="<?= $sub_module->id?>" <?= (!empty($single) && ($sub_module->id == $single->sub_module_id)) ? 'selected' : '';?>><?= $sub_module->sub_module_name?></option>
@@ -98,7 +100,7 @@
 
                             <option value="">Select hours</option>
                             <?php for($i = 0; $i <= 12; $i++) {?>
-                                <option value="<?=$i?>"><?=$i?> hours</option>
+                                <option value="<?=$i?>" <?= (!empty($single) && ($i == $single->hours)) ? 'selected' : ''; ?>><?=$i?> hours</option>
                             <?php } ?>
                             
                             
@@ -113,9 +115,24 @@
 
                             <option value="">Select Task Priority</option>
                             <?php for($i = 1; $i <= 10; $i++) {?>
-                                <option value="<?=$i?>"><?=$i?></option>
+                                <option value="<?=$i?>" <?= (!empty($single) && ($i == $single->priority)) ? 'selected' : ''; ?>><?=$i?></option>
                             <?php } ?>
                             
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Project Status <span class="text-danger">*</span></label>
+
+                        <select class="form-select" name="task_status" >
+
+                            <option value="">Select Status</option>
+                            <option value="Pending" <?php echo !empty($single) && $single->task_status == 'Pending' ? "selected" : ''; ?>>Pending</option>
+                            <option value="Running" <?php echo !empty($single) && $single->task_status == 'Running' ? "selected" : ''; ?>>Running</option>
+                            <option value="Completed" <?php echo !empty($single) && $single->task_status == 'Completed' ? "selected" : ''; ?>>Completed</option>
+                            <option value="Hold" <?php echo !empty($single) && $single->task_status == 'Hold' ? "selected" : ''; ?>>Hold</option>
+
                         </select>
 
                     </div>
@@ -134,11 +151,11 @@
 
                 <button type="submit" class="btn btn-primary">
                     <i class="fa-solid fa-save me-2"></i>
-                    Save Sub Module
+                    Save Task
                 </button>
 
 
-                <a href="<?= base_url('sub_module_list') ?>" class="btn btn-light ms-2">
+                <a href="<?= base_url('task_list') ?>" class="btn btn-light ms-2">
                     Cancel
                 </a>
 
