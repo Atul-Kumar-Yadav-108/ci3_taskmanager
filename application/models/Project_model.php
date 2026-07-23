@@ -169,6 +169,14 @@
                return $this->db->get('tbl_tasks')->result();
             }
 
+            public function get_all_sub_modules_by_project_module_id($project_id, $module_id){
+               $this->db->where('project_id',$project_id);
+               $this->db->where('module_id',$module_id);
+               $this->db->where('status','1');
+               $this->db->where('is_deleted','0');
+               return $this->db->get('tbl_sub_modules')->result();
+            }
+
             public function get_module_by_project_id(){
                $project_id = $this->input->post('project_id');
                $this->db->where('project_id',$project_id);

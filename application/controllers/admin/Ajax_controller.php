@@ -97,5 +97,41 @@ class Ajax_controller extends Authenticated_Controller
         return $this->Project_model->get_sub_module_by_module_id();
     }
 
+
+    
+    public function get_task_list_ajx()
+    {
+        $tasks = $this->Task_model->get_all_tasks();
+        // echo "<pre>";print_r($tasks);exit;
+        $result = [];
+        $i = $this->input->post('start') + 1;
+
+        foreach($tasks['data'] as $row)
+        {
+            $result[]=[
+                'sno'=>$i++,
+                'priority'=>$row->priority,
+                'end_date'=>date('Y-m-d', strtotime($row->end_date)),
+                'start_date'=>date('Y-m-d', strtotime($row->start_date)),
+                'hours'=>$row->hours,
+                'task_title'=>$row->task_title,
+                'project_name'=>$row->project_name,
+                'module_name'=>$row->module_name,
+                'sub_module_name'=>$row->sub_module_name,
+                'task_status'=>$row->task_status,
+                'status'=>$row->status==1?'Active':'Inactive',
+                'description'=>$row->description,
+                'action'=>'<a href="'.base_url('add_task/'.$row->id).'" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>'
+            ];
+        }
+
+        echo json_encode([
+            "draw"=>intval($this->input->post('draw')),
+            "recordsTotal"=>$tasks['total'],
+            "recordsFiltered"=>$tasks['filtered'],
+            "data"=>$result
+        ]);
+    }
+
 }
 ?>

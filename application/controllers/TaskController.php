@@ -28,8 +28,9 @@ class TaskController extends Authenticated_Controller
             if(!empty($this->uri->segment(2))){
                 $data['modules'] = $this->Project_model->get_all_module_list_by_project_id($data['single']->project_id);
                 if(!empty($data['modules'])){
-                        $data['sub_modules'] = $this->Project_model->get_all_task_list_by_project_module_id($data['single']->project_id, $data['single']->module_id);
-                }
+                    $data['sub_modules'] = $this->Project_model->get_all_sub_modules_by_project_module_id($data['single']->project_id, $data['single']->module_id);
+                    // print_r($data['sub_modules']);exit;
+                        }
             }
             $this->render('tasks/add_task', $data);
         }else{
@@ -39,7 +40,7 @@ class TaskController extends Authenticated_Controller
                 }elseif($result == 2){
                     $this->session->set_flashdata('success','Task has been updated');
                 }
-                redirect('sub_module_list');      
+                redirect('task_list');      
         }
     }
 }
