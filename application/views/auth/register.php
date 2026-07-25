@@ -8,17 +8,41 @@
                 <i class="fa-solid fa-list-check fa-3x text-primary"></i>
             </div>
             <h2 class="fw-bold text-dark mb-1">TaskManager</h2>
-            <p class="text-muted small">Sign in to manage your tasks</p>
+            <p class="text-muted small">Sign up to manage your tasks</p>
         </div>
 
-        <!-- Login Card -->
+        <!-- Register Card -->
         <div class="card shadow-sm border-0 rounded-3">
             <div class="card-body p-4">
 
-                <h5 class="card-title fw-semibold mb-4">Welcome back</h5>
+                <h5 class="card-title fw-semibold mb-4">Create an account</h5>
 
-                <?= form_open('login', ['class' => 'needs-validation', 'novalidate' => '']) ?>
+                <?= form_open('register', ['class' => 'needs-validation', 'novalidate' => '']) ?>
 
+                    <!-- Name -->
+                    <div class="mb-3">
+                        <label for="name" class="form-label fw-medium">
+                            Name
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class="fa-solid fa-user text-muted"></i>
+                            </span>
+                            <input type="text"
+                                   id="name"
+                                   name="name"
+                                   class="form-control border-start-0 <?= form_error('name') ? 'is-invalid' : '' ?>"
+                                   placeholder="John Doe"
+                                   value="<?= set_value('name') ?>"
+                                   required
+                                   autocomplete="name">
+                            <?php if (form_error('name')): ?>
+                                <div class="invalid-feedback">
+                                    <?= form_error('name') ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
                     <!-- Email -->
                     <div class="mb-3">
                         <label for="email" class="form-label fw-medium">
@@ -75,7 +99,7 @@
                     <!-- Submit -->
                     <div class="d-grid">
                         <button type="submit" class="btn btn-primary btn-lg fw-semibold">
-                            <i class="fa-solid fa-right-to-bracket me-2"></i>Sign In
+                            <i class="fa-solid fa-user-plus me-2"></i>Sign Up
                         </button>
                     </div>
 
@@ -83,7 +107,7 @@
 
             </div>
             <p class="text-center text-muted small mt-3">
-                Don't have an account? <a href="<?= base_url('register') ?>" class="text-decoration-none">Sign up</a>
+                Already have an account? <a href="<?= base_url('auth/login') ?>" class="text-decoration-none">Sign in</a>
             </p>
         </div>
 
