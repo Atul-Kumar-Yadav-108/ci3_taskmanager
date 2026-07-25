@@ -16,6 +16,11 @@ class Dashboard extends Authenticated_Controller
     {
         $data['title']      = 'Add Task';
         $data['page_class'] = 'page-task';
+        $statistics = $this->Task_model->get_statistics();
+        $data['statistics'] = $statistics;
+        // echo "<pre>";
+        // print_r($data);
+        // exit;
         $this->render('dashboard/index', $data);
     }
 }

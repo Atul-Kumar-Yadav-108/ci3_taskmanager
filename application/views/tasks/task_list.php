@@ -11,13 +11,13 @@
 
 
     <!-- Placeholder for task list -->
-    <div class="card border-0 shadow-sm">
+    <div class="card border-0 shadow-sm p-5">
             <div class="title my-3 mx-5 d-flex justify-content-between">
                 <h4><?= $title ?></h4>
                 <a class="btn btn-primary" href="<?= base_url('add_task');?>">Add new task</a>
             </div>
-        <div class="table mx-3">
-                   <table id="example" class="display">
+        <div class="table mx-3 table-responsive">
+                   <table id="example" class="display nowrap" width="100%">
             <thead>
                 <tr>
                     <th>Sno</th>
@@ -140,6 +140,31 @@ $(document).on('click', '.view-description', function () {
 
     var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
     myModal.show();
+});
+$(document).on('change', '.task-status-dropdown', function () {
+    var task_id = $(this).data('task-id');
+    var new_status = $(this).val();
+// console.log(new_status);
+
+    $.ajax({
+        url: "<?= base_url('admin/Ajax_controller/update_task_status'); ?>",
+        type: "POST",
+        data: {
+            task_id: task_id,
+            status: new_status
+        },
+        success: function (response) {
+            // Handle success response
+            response = JSON.parse(response);
+            if (response.success) {
+                alert(response.message);
+                window.location.reload(); // Reload the page to reflect the updated status
+            } else {
+                alert(response.message);
+                window.location.reload(); // Reload the page to reflect the updated statuss
+            }
+        }
+    });
 });
 </script>
 
