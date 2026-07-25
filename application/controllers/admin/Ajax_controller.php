@@ -120,6 +120,7 @@ class Ajax_controller extends Authenticated_Controller
                 'sub_module_name'=>$row->sub_module_name,
                 'task_status'=>$row->task_status,
                 'status'=>$row->status==1?'Active':'Inactive',
+                 'description'=>$row->description,
                 'task_status' => (
                     $row->task_status == 'Assign' ? '<span class="badge bg-warning text-dark">Assign</span>' :
                     ($row->task_status == 'Running' ? '<span class="badge bg-primary">Running</span>' :
@@ -158,6 +159,55 @@ class Ajax_controller extends Authenticated_Controller
     public function get_overdue_task_list_ajx()
     {
         $tasks = $this->Task_model->get_all_overdue_tasks();
+        // echo "<pre>";print_r($tasks);exit;
+        $result = [];
+        $i = $this->input->post('start') + 1;
+
+        foreach($tasks['data'] as $row)
+        {
+            $result[]=[
+                'sno'=>$i++,
+                'priority'=>$row->priority,
+                'end_date'=>date('Y-m-d', strtotime($row->end_date)),
+                'start_date'=>date('Y-m-d', strtotime($row->start_date)),
+                'hours'=>$row->hours,
+                'task_title'=>$row->task_title,
+                'project_name'=>$row->project_name,
+                'module_name'=>$row->module_name,
+                'sub_module_name'=>$row->sub_module_name,
+                'task_status' => (
+                    $row->task_status == 'Assign' ? '<span class="badge bg-warning text-dark">Assign</span>' :
+                    ($row->task_status == 'Running' ? '<span class="badge bg-primary">Running</span>' :
+                    ($row->task_status == 'Completed' ? '<span class="badge bg-success">Completed</span>' :
+                    ($row->task_status == 'Start' ? '<span class="badge bg-info">Start</span>' :
+                     '<span class="badge bg-danger">Hold</span>')))
+                ),
+                'status'=>$row->status==1?'Active':'Inactive',
+                'description'=>$row->description,
+                'action'=>'
+                <div class="d-flex align-items-center">
+                <select id="task_status" class="form-control form-control-sm task-status-dropdown me-2" data-task-id="'.$row->id.'"  style="min-width:150px; width:150px;" '.($row->task_status == 'Completed' ? 'disabled' : '').'>
+                    <option value="Assign" '.($row->task_status == 'Assign' ? 'selected' : '').'>Assign</option>
+                    <option value="Start" '.($row->task_status == 'Start' ? 'selected' : '').'>Start</option>
+                    <option value="Running" '.($row->task_status == 'Running' ? 'selected' : '').'>Running</option>
+                    <option value="Completed" '.($row->task_status == 'Completed' ? 'selected' : '').'>Completed</option>
+                    <option value="Hold" '.($row->task_status == 'Hold' ? 'selected' : '').'>Hold</option>
+                </select>
+                <a href="'.base_url('add_task/'.$row->id).'" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a></div>'
+            ];
+        }
+
+        echo json_encode([
+            "draw"=>intval($this->input->post('draw')),
+            "recordsTotal"=>$tasks['total'],
+            "recordsFiltered"=>$tasks['filtered'],
+            "data"=>$result
+        ]);
+    }
+
+    public function get_started_task_list_ajx()
+    {
+        $tasks = $this->Task_model->get_all_started_tasks();
         // echo "<pre>";print_r($tasks);exit;
         $result = [];
         $i = $this->input->post('start') + 1;

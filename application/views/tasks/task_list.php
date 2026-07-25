@@ -135,7 +135,7 @@ $(document).ready(function () {
 
 $(document).on('click', '.view-description', function () {
     var description = $(this).attr('data-description');
-
+    // console.log(description);
     $('#exampleModal .modal-body').html(description);
 
     var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));

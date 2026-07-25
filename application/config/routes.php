@@ -11,6 +11,10 @@ $route['translate_uri_dashes'] = FALSE;
 $route['login']  = 'Auth/login';
 $route['logout'] = 'Auth/logout';
 
+
+// authorization routes
+$route['register'] = 'Auth/register';
+
 // Dashboard (placeholder for future)
 $route['dashboard'] = 'Dashboard/index';
 $route['task_list'] = 'TaskController';

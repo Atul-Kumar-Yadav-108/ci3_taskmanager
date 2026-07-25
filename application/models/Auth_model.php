@@ -51,4 +51,12 @@ class Auth_model extends CI_Model
         $this->db->where('id', $user_id)
                  ->update($this->_table, ['last_login' => date('Y-m-d H:i:s')]);
     }
+
+    public function register_user($data)
+    {
+        // $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+        $data['is_active'] = 1; // Set user as active by default
+        $data['created_at'] = date('Y-m-d H:i:s');
+        return $this->db->insert($this->_table, $data);
+    }
 }
