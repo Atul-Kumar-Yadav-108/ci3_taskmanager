@@ -87,7 +87,7 @@
                  
             </div>
         <div class="table mx-3 table-responsive">
-                   <table id="example" class="display nowrap" width="100%">
+                   <table id="example" class=" display nowrap" width="100%">
             <thead>
                 <tr>
                     <th>Sno</th>

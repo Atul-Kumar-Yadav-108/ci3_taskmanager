@@ -121,15 +121,17 @@ class Ajax_controller extends Authenticated_Controller
                 'task_status'=>$row->task_status,
                 'status'=>$row->status==1?'Active':'Inactive',
                 'task_status' => (
-                    $row->task_status == 'Pending' ? '<span class="badge bg-warning text-dark">Pending</span>' :
+                    $row->task_status == 'Assign' ? '<span class="badge bg-warning text-dark">Assign</span>' :
                     ($row->task_status == 'Running' ? '<span class="badge bg-primary">Running</span>' :
                     ($row->task_status == 'Completed' ? '<span class="badge bg-success">Completed</span>' :
-                    '<span class="badge bg-danger">Hold</span>'))
+                    ($row->task_status == 'Start' ? '<span class="badge bg-info">Start</span>' :
+                     '<span class="badge bg-danger">Hold</span>')))
                 ),
                 'action'=>'
                 <div class="d-flex align-items-center">
-                <select id="task_status" class="form-control form-control-sm task-status-dropdown me-2" data-task-id="'.$row->id.'"  style="min-width:150px; width:150px;" '.($row->task_status == 'Completed' ? 'disabled' : '').'>
-                    <option value="Pending" '.($row->task_status == 'Pending' ? 'selected' : '').'>Pending</option>
+                <select class="form-control form-control-sm task-status-dropdown me-2" data-task-id="'.$row->id.'"  style="min-width:150px; width:150px;" '.($row->task_status == 'Completed' ? 'disabled' : '').'>
+                    <option value="Assign" '.($row->task_status == 'Assign' ? 'selected' : '').'>Assign</option>
+                    <option value="Start" '.($row->task_status == 'Start' ? 'selected' : '').'>Start</option>
                     <option value="Running" '.($row->task_status == 'Running' ? 'selected' : '').'>Running</option>
                     <option value="Completed" '.($row->task_status == 'Completed' ? 'selected' : '').'>Completed</option>
                     <option value="Hold" '.($row->task_status == 'Hold' ? 'selected' : '').'>Hold</option>
@@ -173,17 +175,19 @@ class Ajax_controller extends Authenticated_Controller
                 'module_name'=>$row->module_name,
                 'sub_module_name'=>$row->sub_module_name,
                 'task_status' => (
-                    $row->task_status == 'Pending' ? '<span class="badge bg-warning text-dark">Pending</span>' :
+                    $row->task_status == 'Assign' ? '<span class="badge bg-warning text-dark">Assign</span>' :
                     ($row->task_status == 'Running' ? '<span class="badge bg-primary">Running</span>' :
                     ($row->task_status == 'Completed' ? '<span class="badge bg-success">Completed</span>' :
-                    '<span class="badge bg-danger">Hold</span>'))
+                    ($row->task_status == 'Start' ? '<span class="badge bg-info">Start</span>' :
+                     '<span class="badge bg-danger">Hold</span>')))
                 ),
                 'status'=>$row->status==1?'Active':'Inactive',
                 'description'=>$row->description,
                 'action'=>'
                 <div class="d-flex align-items-center">
                 <select id="task_status" class="form-control form-control-sm task-status-dropdown me-2" data-task-id="'.$row->id.'"  style="min-width:150px; width:150px;" '.($row->task_status == 'Completed' ? 'disabled' : '').'>
-                    <option value="Pending" '.($row->task_status == 'Pending' ? 'selected' : '').'>Pending</option>
+                    <option value="Assign" '.($row->task_status == 'Assign' ? 'selected' : '').'>Assign</option>
+                    <option value="Start" '.($row->task_status == 'Start' ? 'selected' : '').'>Start</option>
                     <option value="Running" '.($row->task_status == 'Running' ? 'selected' : '').'>Running</option>
                     <option value="Completed" '.($row->task_status == 'Completed' ? 'selected' : '').'>Completed</option>
                     <option value="Hold" '.($row->task_status == 'Hold' ? 'selected' : '').'>Hold</option>
