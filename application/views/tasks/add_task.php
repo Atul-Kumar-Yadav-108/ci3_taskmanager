@@ -128,7 +128,8 @@
                         <select class="form-select" name="task_status" >
 
                             <option value="">Select Status</option>
-                            <option value="Pending" <?php echo !empty($single) && $single->task_status == 'Pending' ? "selected" : ''; ?>>Pending</option>
+                            <option value="Assign" <?php echo !empty($single) && $single->task_status == 'Assign' ? "selected" : ''; ?>>Assign</option>
+                            <option value="Start" <?php echo !empty($single) && $single->task_status == 'Start' ? "selected" : ''; ?>>Start</option>
                             <option value="Running" <?php echo !empty($single) && $single->task_status == 'Running' ? "selected" : ''; ?>>Running</option>
                             <option value="Completed" <?php echo !empty($single) && $single->task_status == 'Completed' ? "selected" : ''; ?>>Completed</option>
                             <option value="Hold" <?php echo !empty($single) && $single->task_status == 'Hold' ? "selected" : ''; ?>>Hold</option>

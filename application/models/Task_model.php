@@ -92,7 +92,7 @@
             $this->db->select('
                 COUNT(*) AS total_tasks,
                 SUM(CASE WHEN task_status = "completed" THEN 1 ELSE 0 END) AS completed_tasks,
-                SUM(CASE WHEN task_status = "Pending" THEN 1 ELSE 0 END) AS in_progress_tasks,
+                SUM(CASE WHEN task_status = "Pending" OR task_status = "Running" THEN 1 ELSE 0 END) AS in_progress_tasks,
                 SUM(CASE WHEN end_date < CURDATE() AND task_status != "completed" THEN 1 ELSE 0 END) AS overdue_tasks
             ');
             $this->db->from('tbl_tasks');
