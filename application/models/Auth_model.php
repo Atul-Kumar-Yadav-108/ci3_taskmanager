@@ -68,12 +68,28 @@ class Auth_model extends CI_Model
     public function update_user($profile_image = null)
     {
         $user_id = $this->session->userdata('user_id');
+        $user = $this->get_user_by_id($user_id);
+        if (!$user) {
+            return false; // User not found
+        }
+        $profile_update_action = '';
+        if(!empty($profile_image)){
+            $profile_update_action = 'User updated profile image' . ' (ID: ' . $user_id . ', Email: ' . $user->email . ')';
+           
+        }
+        if($user->name != $this->input->post('name')){
+            $profile_update_action .= 'User updated name' . ' (ID: ' . $user_id . ', Email: ' . $user->email . ')';
+        }
         $data = array(
             'name' => $this->input->post('name'),
             'email' => $this->input->post('email'),
-            'profile_image' => $profile_image
+            // 'profile_image' => $profile_image
         );
-
+        if (!empty($profile_image)) {
+            $data['profile_image'] = $profile_image;
+        }
+        // $profile_update_action = 'User updated profile' . ' (ID: ' . $user_id . ', Email: ' . $this->input->post('email') . ')';
+        $this->auth_logs($user_id, 4, $profile_update_action); // Log the profile update action
         return $this->db->where('id', $user_id)->update($this->_table, $data);
     }
 
@@ -94,5 +110,18 @@ class Auth_model extends CI_Model
         } else {
             return false;
         }
+    }
+
+    public function auth_logs($user_id, $action_id, $action)
+    {
+        $data = [
+            'user_id' => $user_id,
+            'action_id' => $action_id, // 1 for login,logout, 2 for registration, 3 for password change, 4 for profile update
+            'action' => $action,
+            'action_date' => date('Y-m-d'),
+            'action_time' => date('H-i-s'),
+            'created_on' => date('Y-m-d H:i:s')
+        ];
+        return $this->db->insert('tbl_auth_logs', $data);
     }
 }
