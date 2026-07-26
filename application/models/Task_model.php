@@ -87,7 +87,7 @@
         public function get_all_tasks(){
             $search   = $this->input->post('search')['value'];
             $user_id  = $this->session->userdata('user_id');
-            $is_admin = $this->session->userdata('role') == 'admin';
+            $is_admin = $this->session->userdata('user_role') == 'admin';
 
             // -- recordsTotal (no search filter) --
             $total = $this->_task_total_count($user_id, $is_admin);
@@ -134,7 +134,7 @@
         // -----------------------------------------------------------------------
         public function get_statistics(){
             $user_id  = $this->session->userdata('user_id');
-            $is_admin = $this->session->userdata('role') == 'admin';
+            $is_admin = $this->session->userdata('user_role') == 'admin';
 
             $this->db->select('
                 COUNT(*) AS total_tasks,
@@ -155,7 +155,7 @@
         public function get_all_overdue_tasks(){
             $search   = $this->input->post('search')['value'];
             $user_id  = $this->session->userdata('user_id');
-            $is_admin = $this->session->userdata('role') == 'admin';
+            $is_admin = $this->session->userdata('user_role') == 'admin';
 
             // -- recordsTotal --
             $total = $this->_task_total_count($user_id, $is_admin, [
@@ -201,7 +201,7 @@
         public function get_all_started_tasks(){
             $search   = $this->input->post('search')['value'];
             $user_id  = $this->session->userdata('user_id');
-            $is_admin = $this->session->userdata('role') == 'admin';
+            $is_admin = $this->session->userdata('user_role') == 'admin';
 
             // -- recordsTotal --
             $total = $this->_task_total_count($user_id, $is_admin, [

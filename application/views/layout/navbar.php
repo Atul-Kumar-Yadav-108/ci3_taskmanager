@@ -229,7 +229,7 @@
                         </li>
                         <li>
                             <a class="dropdown-item text-dark" href="<?= base_url('update_password') ?>">
-                                <i class="fa-solid fa-circle-user me-2"></i>Update Password
+                                <i class="fa-solid fa-unlock me-2"></i>Update Password
                             </a>
                         </li>
                         <li>

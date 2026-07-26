@@ -85,9 +85,9 @@ class Dashboard extends Authenticated_Controller
             redirect('login');
         }
 
-        $this->form_validation->set_rules('current_password', 'Current Password', 'required');
+        $this->form_validation->set_rules('old_password', 'Current Password', 'required');
         $this->form_validation->set_rules('new_password', 'New Password', 'required|min_length[6]');
-        $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|matches[new_password]');
+        $this->form_validation->set_rules('confirm_new_password', 'Confirm Password', 'required|matches[new_password]');
 
         if ($this->form_validation->run() === FALSE) {
             $data['title']       = 'Update Password';
@@ -97,7 +97,7 @@ class Dashboard extends Authenticated_Controller
             $user_id = $this->session->userdata('user_id');
             $user = $this->Auth_model->get_user_by_id($user_id);
 
-            if (!$user || (md5($this->input->post('current_password')) !== $user->password)) {
+            if (!$user || (md5($this->input->post('old_password')) !== $user->password)) {
                 $this->session->set_flashdata('error', 'Current password is incorrect.');
                 redirect('update_password');
                 return;
@@ -111,5 +111,12 @@ class Dashboard extends Authenticated_Controller
             }
             redirect('update_password');
         }
+    }
+
+    public function verify_old_password(){
+        $this->output->set_content_type('application/json');
+        $isValid = $this->Auth_model->verify_old_password();
+        return $this->output->set_output(json_encode(['valid' => $isValid]));
+        exit;
     }
 }
