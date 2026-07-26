@@ -29,10 +29,24 @@
             if($id != ''){
                 $this->db->where('id', $id);
                 $this->db->update('tbl_tasks', $data);
+                $this->logs([
+                    'task_id' => $id,
+                    'user_id' => $this->session->userdata('user_id'),
+                    'descriptions'  => 'Task updated',
+                    'task_status'  => $this->input->post('task_status'),
+                    'created_on' => date('Y-m-d H:i:s')
+                ]);
                 return 2;
             }else{
-                $data['created_on'] = date('Y-m-d h:i:s');
+                $data['created_on'] = date('Y-m-d H:i:s');
                 $this->db->insert('tbl_tasks', $data);
+                $this->logs([
+                    'task_id' => $this->db->insert_id(),
+                    'user_id' => $this->session->userdata('user_id'),
+                    'descriptions'  => 'Task created and assigned to ' . $this->session->userdata('user_name'),
+                    'task_status'  => $this->input->post('task_status'),
+                    'created_on' => date('Y-m-d H:i:s')
+                ]);
                 return 1;
             }
         }
@@ -128,6 +142,14 @@
         public function update_task_status($task_id, $new_status){
             $this->db->where('id', $task_id);
             $this->db->update('tbl_tasks', ['task_status' => $new_status]);
+            $task_description = "Task status updated to '$new_status'";
+            $this->logs([
+                'task_id' => $task_id,
+                'user_id' => $this->session->userdata('user_id'),
+                'descriptions'  => $task_description,
+                'task_status'  => $new_status,
+                'created_on' => date('Y-m-d H:i:s')
+            ]);
             return $this->db->affected_rows() > 0;
         }
 
@@ -239,5 +261,10 @@
                 'filtered' => $totalFiltered,
                 'total'    => $total
             ];
+        }
+        
+        public function logs($data){
+            $this->db->insert('tbl_task_logs', $data);
+            return $this->db->insert_id();
         }
     }

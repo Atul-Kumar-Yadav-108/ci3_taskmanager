@@ -40,6 +40,9 @@ class Auth extends MY_Controller
     // -----------------------------------------------------------------------
     public function logout()
     {
+        $user = $this->Auth_model->get_user_by_id($this->session->userdata('user_id'));
+        $logout_action = 'User logged out' . ' (ID: ' . $user->id . ', Email: ' . $user->email . ')';
+        $this->Auth_model->auth_logs($user->id, 1, $logout_action); // Log the logout action
         $this->session->sess_destroy();
         $this->session->set_flashdata('success', 'You have been logged out successfully.');
         redirect('login');
@@ -82,8 +85,9 @@ class Auth extends MY_Controller
             'logged_in'  => TRUE,
         ];
         $this->session->set_userdata($session_data);
-
         $this->Auth_model->update_last_login($user->id);
+        $login_action = 'User logged in' . ' (ID: ' . $user->id . ', Email: ' . $user->email . ')';
+        $this->Auth_model->auth_logs($user->id, 1, $login_action); // Log the login action
 
         $this->session->set_flashdata('success', 'Welcome back, ' . $user->name . '!');
         redirect('dashboard');
@@ -134,7 +138,8 @@ class Auth extends MY_Controller
             'role'     => 'member',
             'created_at' => date('Y-m-d H:i:s'),
         ];
-
+        $registration_action = 'User registered' . ' (ID: ' . $user->id . ', Email: ' . $user->email . ')';
+        $this->Auth_model->auth_logs($user->id, 2, $registration_action); // Log the registration action
         // Insert user into database
         if ($this->Auth_model->register_user($user_data)) {
             $this->session->set_flashdata('success', 'Registration successful! Please log in.');

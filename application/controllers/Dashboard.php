@@ -105,6 +105,8 @@ class Dashboard extends Authenticated_Controller
 
             $new_password_hashed = md5($this->input->post('new_password'));
             if ($this->Auth_model->update_user_password($user_id, $new_password_hashed)) {
+                $password_change_action = 'User changed password' . ' (ID: ' . $user->id . ', Email: ' . $user->email . ')';
+                $this->Auth_model->auth_logs($user->id, 3, $password_change_action); // Log the password change action
                 $this->session->set_flashdata('success', 'Password updated successfully.');
             } else {
                 $this->session->set_flashdata('error', 'An error occurred while updating your password. Please try again.');
