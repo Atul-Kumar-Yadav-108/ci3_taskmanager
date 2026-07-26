@@ -34,3 +34,8 @@ $route['add_milestone'] = 'ProjectController/add_milestone';
 $route['issue_list'] = 'ProjectController/issue_list';
 $route['add_issue'] = 'ProjectController/add_issue';
 
+
+// profile routes
+$route['profile'] = 'Dashboard/profile';
+$route['update_password'] = 'Dashboard/update_password';
+

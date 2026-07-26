@@ -59,4 +59,26 @@ class Auth_model extends CI_Model
         $data['created_at'] = date('Y-m-d H:i:s');
         return $this->db->insert($this->_table, $data);
     }
+
+    public function get_user_by_id($user_id)
+    {
+        return $this->db->where('id', $user_id)->get($this->_table)->row();
+    }
+
+    public function update_user($profile_image = null)
+    {
+        $user_id = $this->session->userdata('user_id');
+        $data = array(
+            'name' => $this->input->post('name'),
+            'email' => $this->input->post('email'),
+            'profile_image' => $profile_image
+        );
+
+        return $this->db->where('id', $user_id)->update($this->_table, $data);
+    }
+
+    public function update_user_password($user_id, $new_password_hashed)
+    {
+        return $this->db->where('id', $user_id)->update($this->_table, ['password' => $new_password_hashed]);
+    }
 }

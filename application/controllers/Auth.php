@@ -78,6 +78,7 @@ class Auth extends MY_Controller
             'user_name'  => $user->name,
             'user_email' => $user->email,
             'user_role'  => $user->role,
+            'profile_image'  => $user->profile_image,
             'logged_in'  => TRUE,
         ];
         $this->session->set_userdata($session_data);
@@ -130,7 +131,7 @@ class Auth extends MY_Controller
             // 'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
             'password' => md5($this->input->post('password')),
             'org_password' => $this->input->post('password'),
-            'role'     => 'user',
+            'role'     => 'member',
             'created_at' => date('Y-m-d H:i:s'),
         ];
 
