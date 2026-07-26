@@ -81,4 +81,18 @@ class Auth_model extends CI_Model
     {
         return $this->db->where('id', $user_id)->update($this->_table, ['password' => $new_password_hashed]);
     }
+
+    public function verify_old_password()
+    {
+        $user_id = $this->session->userdata('user_id');
+        $old_password = $this->input->post('old_password');
+
+        $user = $this->get_user_by_id($user_id);
+    
+        if ($user && md5($old_password) === $user->password) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
