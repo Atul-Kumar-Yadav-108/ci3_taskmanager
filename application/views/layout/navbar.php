@@ -217,11 +217,21 @@
                        href="#" id="userDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         <span class="avatar-circle">
-                            <?= strtoupper(substr($this->session->userdata('user_name'), 0, 1)) ?>
+                            <?= $this->session->userdata('profile_image') ? '<img src="' . base_url('uploads/profile_images/' . $this->session->userdata('profile_image')) . '" alt="Profile Image" class="img-fluid rounded-circle">' : strtoupper(substr($this->session->userdata('user_name'), 0, 1)) ?>
                         </span>
                         <span><?= htmlspecialchars($this->session->userdata('user_name')) ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li>
+                            <a class="dropdown-item text-dark" href="<?= base_url('profile') ?>">
+                                <i class="fa-solid fa-circle-user me-2"></i>Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item text-dark" href="<?= base_url('update_password') ?>">
+                                <i class="fa-solid fa-circle-user me-2"></i>Update Password
+                            </a>
+                        </li>
                         <li>
                             <a class="dropdown-item text-danger" href="<?= base_url('logout') ?>">
                                 <i class="fa-solid fa-right-from-bracket me-2"></i>Logout
