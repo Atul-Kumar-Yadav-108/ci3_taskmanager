@@ -69,15 +69,6 @@
                     </div>
 
 
-                            <option value="Running" <?php echo !empty($single) && $single->project_status == 'Running' ? "selected" : ''; ?>>Running</option>
-                            <option value="Completed" <?php echo !empty($single) && $single->project_status == 'Completed' ? "selected" : ''; ?>>Completed</option>
-                            <option value="Hold" <?php echo !empty($single) && $single->project_status == 'Hold' ? "selected" : ''; ?>>Hold</option>
-
-                        </select>
-
-                    </div>
-
-
                     <div class="col-md-12 mb-3">
                         <label class="form-label">Description <span class="text-danger">*</span></label>
 
