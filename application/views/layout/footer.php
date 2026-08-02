@@ -1,5 +1,23 @@
 <!-- ===== MAIN CONTENT END ===== -->
 
+<!-- task history modal -->
+    <div class="modal fade" id="taskHistoryModal" tabindex="-1" aria-labelledby="taskHistoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="taskHistoryModalLabel">History Description</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
 <footer class="footer mt-auto py-3 bg-light border-top">
     <div class="container text-center text-muted small">
         &copy; <?= date('Y') ?> TaskManager. All rights reserved.
@@ -26,6 +44,28 @@
 <script src="<?= base_url('assets/js/script.js') ?>"></script>
 
 <!-- <?php if (!empty($page_scripts)) echo $page_scripts; ?> -->
+
+<script>
+$(document).on('click', '.view-task-history', function () {
+    var task_id = $(this).attr('data-id');
+    
+    if (task_id != '') {
+        $.ajax({
+            url: "<?= base_url('admin/Ajax_controller/get_task_history_ajx'); ?>",
+            type: "POST",
+            data: { "task_id": task_id },
+            success: function(response) {
+                $('#taskHistoryModal .modal-body').html(response);
+                var myModal = new bootstrap.Modal(document.getElementById('taskHistoryModal'));
+                myModal.show();
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX Error: " + error);
+            }
+        });
+    }
+});
+</script>
 
 </body>
 </html>

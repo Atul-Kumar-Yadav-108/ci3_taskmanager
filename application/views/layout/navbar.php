@@ -27,12 +27,49 @@
             <?php
                 $current = $this->uri->segment(1);
                 $taskActive = in_array($current, ['task_list', 'add_task']);
+                $settingsActive = in_array($current, ['settings_log', 'profile_update_log']);
                 $projectActive = in_array($current, ['project_list', 'add_project','module_list', 'add_module','sub_module_list', 'add_sub_module']);
                 // $moduleActive = in_array($current, ['module_list', 'add_module']);
                 // $subModuleActive = in_array($current, ['sub_module_list', 'add_sub_module']);
             ?>
             <div class="ceteral-nav d-flex flex-column flex-lg-row gap-2">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <?php if($this->session->userdata('user_role') === 'admin'):?>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 <?= $settingsActive ? 'active' : '' ?>" href="#" id="settingsDropdown"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-list-check"></i>
+                        <span>Settings</span>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="settingsDropdown">
+                        <li>
+                            <a class="dropdown-item <?= $current == 'settings_log' ? 'active' : '' ?>"
+                            href="<?= base_url('settings_log') ?>">
+                                <i class="fa-solid fa-list-check me-2"></i>
+                                Login/Logout Log
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item <?= $current == 'profile_update_log' ? 'active' : '' ?>"
+                            href="<?= base_url('profile_update_log') ?>">
+                                <i class="fa-solid fa-user-edit me-2"></i>
+                                Profile Update Log
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item <?= $current == 'password_change_log' ? 'active' : '' ?>"
+                            href="<?= base_url('password_change_log') ?>">
+                                <i class="fa-solid fa-key me-2"></i>
+                                Password Change Log
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <?php endif;?>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 <?= $taskActive ? 'active' : '' ?>" href="#" id="taskDropdown"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-list-check"></i>
