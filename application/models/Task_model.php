@@ -267,4 +267,13 @@
             $this->db->insert('tbl_task_logs', $data);
             return $this->db->insert_id();
         }
+
+        public function get_task_history($task_id){
+            $this->db->select('tl.id, tl.task_id, tl.user_id, tl.descriptions, tl.task_status, tl.created_on, u.name');
+            $this->db->from('tbl_task_logs tl');
+            $this->db->join('users u', 'tl.user_id = u.id', 'left');
+            $this->db->where('tl.task_id', $task_id);
+            $this->db->order_by('tl.created_on', 'DESC');
+            return $this->db->get()->result();
+        }
     }

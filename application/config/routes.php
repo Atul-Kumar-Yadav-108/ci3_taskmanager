@@ -39,3 +39,8 @@ $route['add_issue'] = 'ProjectController/add_issue';
 $route['profile'] = 'Dashboard/profile';
 $route['update_password'] = 'Dashboard/update_password';
 
+
+// settings routes
+$route['settings_log'] = 'SettingsController/settings_log';
+$route['profile_update_log'] = 'SettingsController/profile_update_log';
+$route['password_change_log'] = 'SettingsController/password_change_log';

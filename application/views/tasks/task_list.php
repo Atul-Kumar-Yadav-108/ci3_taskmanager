@@ -32,6 +32,7 @@
                     <th>Task Status</th>
                     <th>Status</th>
                     <th class="description">Description</th>
+                    <th>History</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -43,20 +44,20 @@
         </div> -->
     </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Module Description</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Module Description</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+            </div>
         </div>
-        <div class="modal-body">
-            ...
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
     </div>
 </div>
 
@@ -102,6 +103,7 @@ $(document).ready(function () {
                             </button>`;
                     }
             },
+            { data: "history" },
             {
                 data: "action",
                 orderable: false,
@@ -110,7 +112,7 @@ $(document).ready(function () {
         ],
         columnDefs: [
             {
-                targets: 12, // Description column
+                targets: 13, // Description column
                 className: 'description'
             }
         ],

@@ -74,11 +74,11 @@ class Auth_model extends CI_Model
         }
         $profile_update_action = '';
         if(!empty($profile_image)){
-            $profile_update_action = 'User updated profile image' . ' (ID: ' . $user_id . ', Email: ' . $user->email . ')';
+            $profile_update_action = 'User updated profile image' . ' (Existing: ' . $user->profile_image . ', Current: ' . $profile_image . ')';
            
         }
         if($user->name != $this->input->post('name')){
-            $profile_update_action .= 'User updated name' . ' (ID: ' . $user_id . ', Email: ' . $user->email . ')';
+            $profile_update_action .= 'User updated name' . ' (Existing: ' . $user->name . ', Current: ' . $this->input->post('name') . ')';
         }
         $data = array(
             'name' => $this->input->post('name'),
@@ -124,4 +124,107 @@ class Auth_model extends CI_Model
         ];
         return $this->db->insert('tbl_auth_logs', $data);
     }
+
+ 
+     public function get_all_settings_logs(){
+            $search   = $this->input->post('search')['value'];
+            $user_id  = $this->session->userdata('user_id');
+            $is_admin = $this->session->userdata('user_role') == 'admin';
+
+            // -- recordsTotal (no search filter) --
+            // $total = $this->_task_total_count($user_id, $is_admin);
+
+            // -- recordsFiltered + data --
+            $this->db->select('t.id, t.action_date, t.action_time, t.user_id, u.name, u.email, t.action_id, t.action');
+            $this->db->from('tbl_auth_logs t');
+            $this->db->join('users u', 't.user_id = u.id', 'left');
+            $this->db->where('t.action_id', '1');
+            $this->db->order_by('t.id', 'DESC');
+            if($search != ''){
+                $this->db->group_start();
+                $this->db->like('t.action', $search);
+                $this->db->group_end();
+            }
+            $totalFiltered = $this->db->count_all_results('', false);
+
+            $length = $this->input->post('length');
+            $start  = $this->input->post('start');
+            if($length != -1){
+                $this->db->limit($length, $start);
+            }
+
+            return [
+                'data'     => $this->db->get()->result(),
+                'filtered' => $totalFiltered,
+                'total'    => $this->db->count_all('tbl_auth_logs')
+            ];
+        }
+
+     public function get_all_password_change_logs(){
+            $search   = $this->input->post('search')['value'];
+            $user_id  = $this->session->userdata('user_id');
+            $is_admin = $this->session->userdata('user_role') == 'admin';
+
+            // -- recordsTotal (no search filter) --
+            // $total = $this->_task_total_count($user_id, $is_admin);
+
+            // -- recordsFiltered + data --
+            $this->db->select('t.id, t.action_date, t.action_time, t.user_id, u.name, u.email, t.action_id, t.action');
+            $this->db->from('tbl_auth_logs t');
+            $this->db->join('users u', 't.user_id = u.id', 'left');
+            $this->db->where('t.action_id', '3');
+            $this->db->order_by('t.id', 'DESC');
+            if($search != ''){
+                $this->db->group_start();
+                $this->db->like('t.action', $search);
+                $this->db->group_end();
+            }
+            $totalFiltered = $this->db->count_all_results('', false);
+
+            $length = $this->input->post('length');
+            $start  = $this->input->post('start');
+            if($length != -1){
+                $this->db->limit($length, $start);
+            }
+
+            return [
+                'data'     => $this->db->get()->result(),
+                'filtered' => $totalFiltered,
+                'total'    => $this->db->count_all('tbl_auth_logs')
+            ];
+        }
+
+     public function get_all_profile_update_logs(){
+            $search   = $this->input->post('search')['value'];
+            $user_id  = $this->session->userdata('user_id');
+            $is_admin = $this->session->userdata('user_role') == 'admin';
+
+            // -- recordsTotal (no search filter) --
+            // $total = $this->_task_total_count($user_id, $is_admin);
+
+            // -- recordsFiltered + data --
+            $this->db->select('t.id, t.action_date, t.action_time, t.user_id, u.name, u.email, t.action_id, t.action');
+            $this->db->from('tbl_auth_logs t');
+            $this->db->join('users u', 't.user_id = u.id', 'left');
+            $this->db->where('t.action_id', '4');
+            $this->db->order_by('t.id', 'DESC');
+            if($search != ''){
+                $this->db->group_start();
+                $this->db->like('t.action', $search);
+                $this->db->group_end();
+            }
+            $totalFiltered = $this->db->count_all_results('', false);
+
+            $length = $this->input->post('length');
+            $start  = $this->input->post('start');
+            if($length != -1){
+                $this->db->limit($length, $start);
+            }
+
+            return [
+                'data'     => $this->db->get()->result(),
+                'filtered' => $totalFiltered,
+                'total'    => $this->db->count_all('tbl_auth_logs')
+            ];
+        }
 }
