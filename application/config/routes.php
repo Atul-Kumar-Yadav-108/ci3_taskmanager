@@ -44,3 +44,6 @@ $route['update_password'] = 'Dashboard/update_password';
 $route['settings_log'] = 'SettingsController/settings_log';
 $route['profile_update_log'] = 'SettingsController/profile_update_log';
 $route['password_change_log'] = 'SettingsController/password_change_log';
+$route['notifications'] = 'SettingsController/notifications';
+$route['mark_all_as_read'] = 'SettingsController/mark_all_as_read';
+$route['notification_details/(:any)'] = 'SettingsController/notification_details/$1';

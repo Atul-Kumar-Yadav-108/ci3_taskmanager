@@ -19,6 +19,7 @@ class Ajax_controller extends Authenticated_Controller
                 'created_date'=>date('Y-m-d',strtotime($row->created_on)),
                 'project_code'=>$row->project_code,
                 'project_name'=>$row->project_name,
+                'project_type'=> '<span class="badge ' . ($row->project_type == 'Major' ? 'bg-success' : 'bg-info') . ' fw-bold">' . $row->project_type . '</span>',
                 'project_status'=>$row->project_status,
                 'status'=>$row->status==1?'Active':'Inactive',
                 'description'=>$row->description,
@@ -383,6 +384,31 @@ class Ajax_controller extends Authenticated_Controller
         } else {
             echo '<p>No history available for this task.</p>';
         }
+    }
+
+     public function get_notifications_ajx()
+    {
+        $logs = $this->Auth_model->get_all_notifications();
+        // echo "<pre>";print_r($logs);exit;
+        $result = [];
+        $i = $this->input->post('start') + 1;
+
+        foreach($logs['data'] as $row)
+        {
+            $class = $row->is_read == '1' ? 'unread-row' : '';
+
+            $result[] = [
+                'sno' => $i++,
+                'descriptions' => '<a href="'.base_url('notification_details/'.$row->id).'" class="text-decoration-none '.$class.'">'.$row->descriptions.'</a>'
+            ];
+        }
+
+        echo json_encode([
+            "draw"=>intval($this->input->post('draw')),
+            "recordsTotal"=>$logs['total'],
+            "recordsFiltered"=>$logs['filtered'],
+            "data"=>$result
+        ]);
     }
 
 }

@@ -1,5 +1,10 @@
 
 <!-- ===== NAVBAR (hidden on login/register pages) ===== -->
+
+<?php
+$unreadNotificationsCount = $this->Settings_model->unreadNotificationsCount();
+
+?>
 <?php if ($this->session->userdata('logged_in')): ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
     <div class="container-fluid">
@@ -249,7 +254,25 @@
 
             <!-- User dropdown -->
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item dropdown">
+                <li>
+                    <absolute class="position-relative top-50 start-0 translate-middle mb-2">
+                        <a class="nav-link d-flex align-items-center gap-2" href="<?= base_url('notifications') ?>">
+                            <i class="fa-solid fa-bell"></i>
+                            <?php
+                            if ($unreadNotificationsCount > 0): ?>
+                                <span class="position-absolute top-0 start-100 translate-middle text-light badge rounded-pill bg-danger">
+                                    <?= $unreadNotificationsCount ?>
+                                    <span class="visually-hidden">unread notifications</span>
+                                </span>
+                            <?php elseif($unreadNotificationsCount === 0): ?>
+                                <span class="position-absolute top-0 start-100 translate-middle text-light badge rounded-pill bg-success">
+                                    0
+                                    <span class="visually-hidden">unread notifications</span>
+                                </span>
+                            <?php endif; ?>
+                        </a>
+                </li>
+                <li class="nav-item dropdown ms-3">
                     <a class="nav-link dropdown-toggle d-flex align-items-center gap-2"
                        href="#" id="userDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">

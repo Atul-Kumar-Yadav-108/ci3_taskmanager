@@ -55,6 +55,28 @@
 
                     </div>
 
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Project Type <span class="text-danger">*</span></label>
+
+                        <select class="form-select" name="project_type" >
+
+                            <option value="">Select Type</option>
+                            <option value="Major" <?php echo !empty($single) && $single->project_type == 'Major' ? "selected" : ''; ?>>Major</option>
+                            <option value="Minor" <?php echo !empty($single) && $single->project_type == 'Minor' ? "selected" : ''; ?>>Minor</option>
+
+                        </select>
+
+                    </div>
+
+
+                            <option value="Running" <?php echo !empty($single) && $single->project_status == 'Running' ? "selected" : ''; ?>>Running</option>
+                            <option value="Completed" <?php echo !empty($single) && $single->project_status == 'Completed' ? "selected" : ''; ?>>Completed</option>
+                            <option value="Hold" <?php echo !empty($single) && $single->project_status == 'Hold' ? "selected" : ''; ?>>Hold</option>
+
+                        </select>
+
+                    </div>
+
 
                     <div class="col-md-12 mb-3">
                         <label class="form-label">Description <span class="text-danger">*</span></label>
@@ -97,6 +119,7 @@ $(document).ready(function () {
             project_name:   { required: true },
             project_code:   { required: true },
             project_status: { required: true },
+            project_type: { required: true },
             start_date:     { required: true },
             end_date:       { required: true },
             description:       { required: true }
@@ -105,6 +128,7 @@ $(document).ready(function () {
             project_name:   { required: "Please enter project name" },
             project_code:   { required: "Please enter project code" },
             project_status: { required: "Please select project status" },
+            project_type: { required: "Please select project type" },
             start_date:     { required: "Please select start date" },
             end_date:       { required: "Please select end date" },
             description:       { required: "Please enter description" }
