@@ -227,4 +227,42 @@ class Auth_model extends CI_Model
                 'total'    => $this->db->count_all('tbl_auth_logs')
             ];
         }
+
+
+        public function get_all_notifications(){
+            $search   = $this->input->post('search')['value'];
+            $user_id  = $this->session->userdata('user_id');
+            $is_admin = $this->session->userdata('user_role') == 'admin';
+
+            // -- recordsTotal (no search filter) --
+            // $total = $this->_task_total_count($user_id, $is_admin);
+
+            // -- recordsFiltered + data --
+            $this->db->select('t.*, u.name, u.email');
+            $this->db->from('tbl_task_logs t');
+            $this->db->join('users u', 't.user_id = u.id', 'left');
+            // $this->db->where('t.action_id', '1');
+            if (!$is_admin) {
+                $this->db->where('t.user_id', $user_id);
+            }
+            $this->db->order_by('t.id', 'DESC');
+            if($search != ''){
+                $this->db->group_start();
+                $this->db->like('t.title', $search);
+                $this->db->group_end();
+            }
+            $totalFiltered = $this->db->count_all_results('', false);
+
+            $length = $this->input->post('length');
+            $start  = $this->input->post('start');
+            if($length != -1){
+                $this->db->limit($length, $start);
+            }
+
+            return [
+                'data'     => $this->db->get()->result(),
+                'filtered' => $totalFiltered,
+                'total'    => $this->db->count_all('tbl_task_logs')
+            ];
+        }
 }

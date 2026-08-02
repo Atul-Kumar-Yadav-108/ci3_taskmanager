@@ -5,6 +5,11 @@
     word-break: break-word;
     overflow-wrap: break-word;
 }
+
+.unread-row {
+    color: green !important;
+    font-weight: 600;
+}
 </style>
 <div class="container py-4">
 
@@ -14,27 +19,28 @@
     <div class="card border-0 shadow-sm">
             <div class="title my-3 mx-5 d-flex justify-content-between">
                 <h4><?= $title ?></h4>
-                <a class="btn btn-primary" href="<?= base_url('add_project');?>">Add Project</a>
+                <a class="btn btn-primary" href="<?= base_url('mark_all_as_read');?>">Mark All as read</a>
             </div>
         <div class="table mx-3">
                    <table id="example" class="display">
             <thead>
                 <tr>
                     <th>Sno</th>
-                    <th>End Date</th>
-                    <th>Start Date</th>
-                    <th>Created Date</th>
-                    <th>Project Code</th>
-                    <th>Project Name</th>
-                    <th>Project Type</th>
-                    <th>Project Status</th>
+                    <th>descriptions</th>
+                </tr>
+            </thead>
+        </table>
+        </div>
+        <!-- <div class="card-body text-center py-5 text-muted">
+            <i class="fa-solid fa-inbox fa-3x mb-3 opacity-25"></i>
+            <p class="mb-0">Project list</p>
                     <th>Status</th>
                     <th class="description">Descripiton</th>
                     <th>Action</th>
                 </tr>
             </thead>
         </table>
-        </div>
+        </div> -->
         <!-- <div class="card-body text-center py-5 text-muted">
             <i class="fa-solid fa-inbox fa-3x mb-3 opacity-25"></i>
             <p class="mb-0">Project list</p>
@@ -76,38 +82,19 @@ $(document).ready(function () {
             [10, 25, 50, 100, "All"]
         ],
         ajax: {
-            url: "<?= base_url('admin/Ajax_controller/get_project_list_ajx'); ?>",
+            url: "<?= base_url('admin/Ajax_controller/get_notifications_ajx'); ?>",
             type: "POST",
             // dataSrc: ""
         },
         columns: [
             { data: "sno" },
-            { data: "end_date" },
-            { data: "start_date" },
-            { data: "created_date" },
-            { data: "project_code" },
-            { data: "project_name" },
-            { data: "project_type" },
-            { data: "project_status" },
-            { data: "status" },
-            { data: "description",
-                    render: function(data, type, row) {
-                        return `<button class="btn btn-sm btn-info view-description"
-                                data-description="${$('<div>').text(data).html()}">
-                                <i class="fa-solid fa-eye"></i> View
-                            </button>`;
-                    }
-            },
-            {
-                data: "action",
-                orderable: false,
-                searchable: false
-            }
+            { data: "descriptions" },
+
         ],
         columnDefs: [
-            {
-                targets: 10, // Description column
-                className: 'description'
+           {
+                targets: 1, // Description column
+                className: 'descriptions'
             }
         ],
                 buttons: [

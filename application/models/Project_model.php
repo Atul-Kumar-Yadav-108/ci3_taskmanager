@@ -9,6 +9,7 @@
                         'start_date' => date('Y-m-d',strtotime($this->input->post('start_date'))),
                         'end_date' => date('Y-m-d',strtotime($this->input->post('end_date'))),
                         'project_status' => $this->input->post('project_status'),
+                        'project_type' => $this->input->post('project_type'),
                         'description' => $this->input->post('description'),
                  ];
 
